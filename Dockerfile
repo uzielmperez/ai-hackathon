@@ -1,7 +1,7 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
 
 COPY mealwise /app
-COPY config /app/config
+COPY mealwise/requirements.txt /app/config/requirements.txt
 
 # Install dependencies
 RUN pip install --no-cache-dir -r /app/config/requirements.txt
