@@ -26,16 +26,18 @@ paths:
                 properties:
                   message:
                     type: string
-  /get_product_info/{product}:
+  /get_product_info:
     get:
       operationId: getProductInfo
       summary: Get product information
       parameters:
-        - name: product
-          in: path
+        - name: products
+          in: query
           required: true
           schema:
-            type: string
+            type: array
+            items:
+              type: string
       responses:
         "200":
           description: OK
