@@ -8,7 +8,7 @@ from typing import List
 
 # app = FastAPI()
 
-app = quart_cors.cors(quart.Quart(__name__))
+app = FastAPI()
 
 # Replace these placeholders with your actual client ID and secret from the Kroger Developer Portal
 YOUR_CLIENT_ID = "mealprice-98f71351b6455ef372f14d38514dd5ec6812214460393455349"
