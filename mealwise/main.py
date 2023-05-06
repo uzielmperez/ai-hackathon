@@ -33,7 +33,7 @@ async def plugin_manifest():
         text = f.read()
         return quart.Response(text, mimetype="text/json")
         
-@app.get("/openapi.yaml")
+@app.get("/.well-known/openapi.yaml")
 async def openapi_spec():
     host = request.headers['Host']
     with open("openapi.yaml") as f:
