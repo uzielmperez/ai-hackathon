@@ -113,8 +113,8 @@ async def get_product_info(product: str):
 
         # for product in products:
         product_id = get_product_id(product, store_id, headers)
-        if not product_id:
-            continue
+        # if not product_id:
+        #     continue
         product_data = get_product_details(product_id, store_id, headers)
         description = product_data["description"]
         price = product_data["items"][0]["price"]["regular"]
