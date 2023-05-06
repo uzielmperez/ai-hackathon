@@ -10,6 +10,22 @@ from typing import List
 
 app = FastAPI()
 
+# Configure the CORS middleware
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:8080",
+    "https://chat.openai.com/"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Replace these placeholders with your actual client ID and secret from the Kroger Developer Portal
 YOUR_CLIENT_ID = "mealprice-98f71351b6455ef372f14d38514dd5ec6812214460393455349"
 YOUR_CLIENT_SECRET = "9caCs00jJ5ztTPoTasuWO0NRkjHWTbVYaT6rZf4_"
