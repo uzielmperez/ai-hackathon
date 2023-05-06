@@ -1,22 +1,18 @@
 {
-  "schema_version": "v1",
-  "name_for_human": "Meal Price",
-  "name_for_model": "mealprice",
-  "description_for_human": "A plugin to fetch product prices from Kroger",
-  "description_for_model": "This plugin fetches product prices from Kroger. You can get information about products such as milk and eggs.",
-  "auth": {
-    "type": "service_http",
-    "authorization_type": "bearer",
-    "verification_tokens": {
-      "kroger": "9caCs00jJ5ztTPoTasuWO0NRkjHWTbVYaT6rZf4_"
-    }
-  },
-  "api": {
-    "type": "openapi",
-    "url": "https://mealwise.onrender.com/openapi.yaml",
-    "is_user_authenticated": false
-  },
-  "logo_url": "https://your-domain.com/logo.png",
-  "contact_email": "support@your-domain.com",
-  "legal_info_url": "https://www.your-domain.com/legal"
+    "schema_version": "v1",
+    "name_for_human": "MealWise",
+    "name_for_model": "MealWise",
+    "description_for_human": "Plugin for planning personalized grocery lists with pricing and aisle information at Kroger stores",
+    "description_for_model": "Plugin for planning personalized grocery lists with pricing and aisle information at Kroger stores",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "https://mealwise.onrender.com/openapi.yaml",
+        "is_user_authenticated": false
+    },
+    "logo_url": "https://www.pngfind.com/pngs/m/229-2298411_website-logo-transparent-transparent-background-website-logo-png.png",
+    "contact_email": "support@example.com",
+    "legal_info_url": "https://example.com/legal"
 }
