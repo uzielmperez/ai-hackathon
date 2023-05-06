@@ -1,9 +1,13 @@
 from fastapi import FastAPI, HTTPException
-from quart import requests
+from quart import request
+import requests
 import quart
+import quart_cors
 import base64
 
-app = FastAPI()
+# app = FastAPI()
+
+app = quart_cors.cors(quart.Quart(__name__))
 
 # Replace these placeholders with your actual client ID and secret from the Kroger Developer Portal
 YOUR_CLIENT_ID = "mealprice-98f71351b6455ef372f14d38514dd5ec6812214460393455349"
@@ -29,7 +33,7 @@ async def plugin_manifest():
         text = f.read()
         return quart.Response(text, mimetype="text/json")
         
-@app.get("/openapi.yaml")
+@app.get("openapi.yaml")
 async def openapi_spec():
     host = request.headers['Host']
     with open("openapi.yaml") as f:
