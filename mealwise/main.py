@@ -37,11 +37,11 @@ async def plugin_manifest():
         return quart.Response(text, mimetype="text/json")
         
 @app.get("/openapi.yaml")
-async def openapi_spec(request: Request):
-    host = request.headers['host']
+async def openapi_spec():
+    host = request.headers['Host']
     with open("openapi.yaml") as f:
         text = f.read()
-        return PlainTextResponse(text, media_type="text/yaml")
+        return quart.Response(text, mimetype="text/yaml")
 
 def get_kroger_access_token(client_id: str, client_secret: str) -> str:
     credentials = f"{client_id}:{client_secret}"
