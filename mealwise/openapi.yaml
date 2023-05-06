@@ -8,6 +8,7 @@ servers:
 paths:
   /get_product_info:
     get:
+      operationId: getProdutInfo,
       summary: Get product information from the Kroger API.
       responses:
         '200':
