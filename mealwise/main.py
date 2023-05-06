@@ -109,8 +109,7 @@ def get_product_details(product_id: str, store_id: str, headers: dict) -> dict:
 
 @app.get("/get_product_info")
 async def get_product_info():
-    products = request.args.get('products', '')
-    products = products.split(',')
+    products = request.args.getlist('products')
     try:
         access_token = get_kroger_access_token(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
         headers = {"Authorization": f"Bearer {access_token}"}
@@ -122,8 +121,11 @@ async def get_product_info():
             print(f"product_id {product_id}")
             product_data = get_product_details(product_id, store_id, headers)
             description = product_data["description"]
-            price = product_data["items"][0]["price"]["regular"]
-            promo = product_data["items"][0]["price"]["promo"]
+            price = "Not available"
+            promo = "Not available"
+            if "price" in product_data["items"][0]:
+                price = product_data["items"][0]["price"]["regular"]
+                promo = product_data["items"][0]["price"]["promo"]
             print(product_data)
             results.append({
                 "description": description,
