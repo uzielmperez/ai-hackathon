@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-    title: TODO Plugin
+    title: Mealwise Plugin
     description: A plugin that allows the user to create and manage a TODO list using ChatGPT. If you do not know the user's username, ask them first before making queries to the plugin. Otherwise, use the username "global".
     version: "v1"
 servers:
@@ -8,7 +8,7 @@ servers:
 paths:
   /get_product_info:
     get:
-      operationId: getProdutInfo,
+      operationId: getProductInfo,
       summary: Get product information from the Kroger API.
       responses:
         '200':
