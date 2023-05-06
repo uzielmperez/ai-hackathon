@@ -1,18 +1,38 @@
 openapi: 3.0.1
 info:
-    title: Mealwise Plugin
-    description: A plugin that allows the user to create and manage a TODO list using ChatGPT. If you do not know the user's username, ask them first before making queries to the plugin. Otherwise, use the username "global".
-    version: "v1"
+  title: Meal Price Plugin
+  description: A plugin that fetches product prices from Kroger.
+  version: 'v1'
 servers:
-    - url: https://mealwise.onrender.com
+  - url: https://mealwise.onrender.com
 paths:
+  /mealwise/{prompt}:
+    get:
+      operationId: promptEndpoint
+      summary: Get mealwise prompt
+      parameters:
+        - name: prompt
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /get_product_info:
     get:
-      operationId: getProductInfo,
-      summary: Get product information from the Kroger API.
+      operationId: getProductInfo
+      summary: Get product information
       responses:
-        '200':
-          description: Successful response
+        "200":
+          description: OK
           content:
             application/json:
               schema:
@@ -30,12 +50,3 @@ paths:
                       type: number
                     location:
                       type: string
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  detail:
-                    type: string
