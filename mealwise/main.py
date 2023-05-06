@@ -10,23 +10,7 @@ from fastapi.responses import PlainTextResponse
 
 # app = FastAPI()
 
-app = FastAPI()
-
-# Configure the CORS middleware
-origins = [
-    "http://localhost",
-    "http://localhost:8000",
-    "http://localhost:8080",
-    "https://chat.openai.com/"
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins="*",
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = quart_cors.cors(quart.Quart(__name__))
 
 # Replace these placeholders with your actual client ID and secret from the Kroger Developer Portal
 YOUR_CLIENT_ID = "mealprice-98f71351b6455ef372f14d38514dd5ec6812214460393455349"
@@ -41,7 +25,7 @@ PRODUCT_URL = "https://api-ce.kroger.com/v1/products"
 LOCATIONS_URL = 'https://api-ce.kroger.com/v1/locations'
 PRODUCT_DETAILS_URL = "https://api-ce.kroger.com/v1/products/"
 
-@app.get("/mealwise/{prompt}")
+@app.get("/mealwise/<prompt>")
 async def prompt_endpoint(prompt: str):
     return {"message": prompt}
 
@@ -123,7 +107,7 @@ def get_product_details(product_id: str, store_id: str, headers: dict) -> dict:
     return response.json()["data"]
 
 
-@app.get("/get_product_info/{product}")
+@app.get("/get_product_info/<product>")
 async def get_product_info(product: str):
     try:
         access_token = get_kroger_access_token(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
