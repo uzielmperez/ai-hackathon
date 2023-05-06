@@ -4,6 +4,7 @@ import requests
 import quart
 import quart_cors
 import base64
+from typing import List
 
 # app = FastAPI()
 
@@ -102,30 +103,29 @@ def get_product_details(product_id: str, store_id: str, headers: dict) -> dict:
     return response.json()["data"]
 
 
-@app.get("/get_product_info")
-async def get_product_info():
-    products = ["milk", "eggs"]
+@app.get("/get_product_info/{product}")
+async def get_product_info(product: str):
     try:
         access_token = get_kroger_access_token(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
         headers = {"Authorization": f"Bearer {access_token}"}
         results = []
         store_id = find_closest_kroger_store(zip_code=ZIP_CODE)["store_id"]
 
-        for product in products:
-            product_id = get_product_id(product, store_id, headers)
-            if not product_id:
-                continue
-            product_data = get_product_details(product_id, store_id, headers)
-            description = product_data["description"]
-            price = product_data["items"][0]["price"]["regular"]
-            promo = product_data["items"][0]["price"]["promo"]
-            results.append({
-                "description": description,
-                "price": str(price),
-                "hasPromo": promo != 0,
-                "promoPrice": promo,
-                "location": product_data["aisleLocations"][0]["description"] if product_data["aisleLocations"] else "Not available"
-            })
+        # for product in products:
+        product_id = get_product_id(product, store_id, headers)
+        if not product_id:
+            continue
+        product_data = get_product_details(product_id, store_id, headers)
+        description = product_data["description"]
+        price = product_data["items"][0]["price"]["regular"]
+        promo = product_data["items"][0]["price"]["promo"]
+        results.append({
+            "description": description,
+            "price": str(price),
+            "hasPromo": promo != 0,
+            "promoPrice": promo,
+            "location": product_data["aisleLocations"][0]["description"] if product_data["aisleLocations"] else "Not available"
+        })
         return results
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

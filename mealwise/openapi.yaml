@@ -26,10 +26,16 @@ paths:
                 properties:
                   message:
                     type: string
-  /get_product_info:
+  /get_product_info/{product}:
     get:
       operationId: getProductInfo
       summary: Get product information
+      parameters:
+        - name: product
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
