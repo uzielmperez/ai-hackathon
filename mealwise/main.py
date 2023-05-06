@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from quart import request
 import requests
 import quart
@@ -52,11 +52,11 @@ async def plugin_manifest():
         return quart.Response(text, mimetype="text/json")
         
 @app.get("/openapi.yaml")
-async def openapi_spec():
-    host = request.headers['Host']
+async def openapi_spec(request: Request):
+    host = request.headers['host']
     with open("openapi.yaml") as f:
         text = f.read()
-        return quart.Response(text, mimetype="text/yaml")
+        return PlainTextResponse(text, media_type="text/yaml")
 
 def get_kroger_access_token(client_id: str, client_secret: str) -> str:
     credentials = f"{client_id}:{client_secret}"
@@ -105,8 +105,10 @@ def get_product_id(product: str, store_id: str, headers: dict) -> str:
         "filter.store": store_id
     }
     response = requests.get(PRODUCT_URL, headers=headers, params=params)
+    print(f"get_product_id: response {response}")
     response.raise_for_status()
     data = response.json()["data"]
+    print(f"get_product_id: data {response}")
     if not data:
         return None
     return data[0]["productId"]
@@ -130,6 +132,7 @@ async def get_product_info(product: str):
 
         # for product in products:
         product_id = get_product_id(product, store_id, headers)
+        print(f"product_id {product_id}")
         product_data = get_product_details(product_id, store_id, headers)
         description = product_data["description"]
         price = product_data["items"][0]["price"]["regular"]
