@@ -1,0 +1,18 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "MealWise",
+    "name_for_model": "MealWise",
+    "description_for_human": "Plugin for planning personalized grocery lists with pricing and aisle information at Kroger stores",
+    "description_for_model": "Plugin for planning personalized grocery lists with pricing and aisle information at Kroger stores",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "https://example.com/openapi.yaml",
+        "is_user_authenticated": false
+    },
+    "logo_url": "https://example.com/logo.png",
+    "contact_email": "support@example.com",
+    "legal_info_url": "https://example.com/legal"
+}
