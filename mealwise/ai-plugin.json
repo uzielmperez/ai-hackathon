@@ -9,7 +9,7 @@
     },
     "api": {
         "type": "openapi",
-        "url": "https://mealwise-1-y9833711.deta.app/openapi.yaml",
+        "url": "https://mealwise.onrender.com/openapi.yaml",
         "is_user_authenticated": false
     },
     "logo_url": "https://example.com/logo.png",
