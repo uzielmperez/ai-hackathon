@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
-from typing import List
-import requests
+from quart import requests
+import quart
 import base64
 
 app = FastAPI()
