@@ -119,21 +119,22 @@ async def get_product_info():
         for product in products:
             product_id = get_product_id(product, store_id, headers)
             print(f"product_id {product_id}")
-            product_data = get_product_details(product_id, store_id, headers)
-            description = product_data["description"]
-            price = "Not available"
-            promo = "Not available"
-            if "price" in product_data["items"][0]:
-                price = product_data["items"][0]["price"]["regular"]
-                promo = product_data["items"][0]["price"]["promo"]
-            print(product_data)
-            results.append({
-                "description": description,
-                "price": str(price),
-                "hasPromo": promo != 0,
-                "promoPrice": promo,
-                "location": product_data["aisleLocations"][0]["description"] if product_data["aisleLocations"] else "Data not available"
-            })
+            if product_id is not None:
+                product_data = get_product_details(product_id, store_id, headers)
+                description = product_data["description"]
+                price = "Not available"
+                promo = "Not available"
+                if "price" in product_data["items"][0]:
+                    price = product_data["items"][0]["price"]["regular"]
+                    promo = product_data["items"][0]["price"]["promo"]
+                print(product_data)
+                results.append({
+                    "description": description,
+                    "price": str(price),
+                    "hasPromo": promo != 0,
+                    "promoPrice": promo,
+                    "location": product_data["aisleLocations"][0]["description"] if product_data["aisleLocations"] else "Data not available"
+                })
         return results
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
